@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head xmlns="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="bootstrap-4.4.1/css/bootstrap.min.css">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script type="text/javascript" src="bootstrap-4.4.1/js/juqery_latest.js"></script>
+    <script type="text/javascript" src="bootstrap-4.4.1/js/bootstrap.min.js"></script>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
+        integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+    <title>Laptop Price Prediction</title>
+
+    <style type="text/css">
+        body {
+            /* background-image: url("https://www.wallpapers13.com/wp-content/uploads/2018/11/Dolomiti-Italy-Autumn-Lago-Antorno-landscape-photography-Desktop-HD-Wallpaper-For-PC-Tablet-And-Mobile-3840x2400-1920x1080.jpg"); */
+            /*background-image: url("static/sample.jpg");*/
+            background-color: black;
+            /* background-image: linear-gradient(rgb(184, 184, 23),BLACK);
+             background-size: 100vh; */
+
+            background-size: cover;
+        }
+
+        #main_content {
+            margin-top: 5vh;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            color: white;
+            background-color: transparent;
+        }
+        .form-group label{
+            font-size: medium;
+        color:white;
+        }
+        h3{
+        color:white;
+        }
+        #prediction{
+            font-size: xx-large;
+            margin-bottom: 10vh;
+            padding: 6vh;
+        }
+
+        #main_content h1{
+            font-size: xx-large;
+        }
+        .form-group{
+            width: 60vh;
+            display: inline-block;
+            margin-bottom: 5vh;
+            margin-left: 15vh;
+        }
+        #nav-content{
+            background-color: transparent;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-900 z-20"
+    id="nav-content">
+    <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
+        <li class="mr-6 my-2 md:my-0">
+            <a href="/"
+                class="block py-1 md:py-3 pl-1 align-middle text-blue-400 no-underline hover:text-gray-100 border-b-2 border-blue-400 hover:border-blue-400">
+                <i class="fas fa-home fa-fw mr-3 text-blue-400"></i><span
+                    class="pb-1 md:pb-0 text-sm">Home</span>
+            </a>
+        </li>
+        <li class="mr-6 my-2 md:my-0">
+            <a href="/visualize"
+                class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-100 border-b-2 border-gray-900  hover:border-green-400">
+                <i class="fas fa-chart-area fa-fw mr-3"></i><span class="pb-1 md:pb-0 text-sm">Stats</span>
+            </a>
+        </li>
+    </ul>
+
+
+</div>
+    <div class="col-md-8" id="main_content">
+        <center>
+            <h1>laptop Price Predictor</h1><br>
+        </center>
+        <form action="#" method="post">
+            <div class="form-group">
+                <label>Company Name</label>
+               <select class="selectpicker form-control" id="company" name="company" required="1" onchange="myNewFunction(this);">
+                   {% for company in companies %}
+                    <option value = "{{ company }}"> {{ company }} </option>
+                     {% endfor %}
+               </select>
+            </div>
+
+
+<div class="form-group">
+                <label>Type Name</label>
+
+                <select class="selectpicker form-control" id="type" name="type" required="1">
+                    {% for types in type %}
+                   <option value="{{ types }}">{{ types }}</option>
+                   {% endfor %}
+            </select>
+            </div>
+
+            <div class="form-group">
+                <label>Inch</label>
+
+                <select class="selectpicker form-control" id="inch" name="inch" required="1">
+                    {% for i in inch %}
+                   <option value="{{ i }}">{{ i }}</option>
+                   {% endfor %}
+            </select>
+            </div>
+
+                <div class="form-group">
+                <label for="ram">Ram</label>
+                <select class="selectpicker form-control" id="ram" name="ram" required="1">
+                    {% for r in ram %}
+                   <option value="{{ r }}">{{ r }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+
+              <div class="form-group">
+                <label for="touch">Touch Screen</label>
+                <select class="selectpicker form-control" id="touch" name="touch" required="1">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ips">IPS</label>
+                <select class="selectpicker form-control" id="ips" name="ips" required="1">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+              <div class="form-group">
+                <label for="ppi">Screen Resolution</label>
+                <select class="selectpicker form-control" id="ppi" name="ppi" required="1">
+<!--                    {% for p in ppi %}-->
+<!--                   <option value="{{ p }}">{{ p }}</option>-->
+<!--                   {% endfor %}-->
+                    <option value="1920x1080">1920x1080</option>
+                    <option value="1600x900">1600x900</option>
+                    <option value="1366x768">1366x768</option>
+                    <option value="3840x2160">3840x2160</option>
+                    <option value="3200x1800">3200x1800</option>
+                    <option value="2880x1800">2880x1800</option>
+                    <option value="2560x1600">2560x1600</option>
+                    <option value="2560x1440">2560x1440</option>
+                    <option value="2304x1440">2304x1440</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="processor">processor</label>
+                <select class="selectpicker form-control" id="processor" name="processor" required="1">
+                    {% for cpu in CPU %}
+                   <option value="{{ cpu }}">{{ cpu }}</option>
+                   {% endfor %}
+                </select>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="hdd">HDD</label>
+                <select class="selectpicker form-control" id="HDD" name="HDD" required="0">
+                     {% for rom in HDD %}
+                   <option value="{{ rom }}">{{ rom }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+
+                <div class="form-group">
+                <label for="SSD">SSD</label>
+                <select class="selectpicker form-control" id="SSD" name="SSD" required="0">
+                     {% for rom1 in SSD %}
+                   <option value="{{ rom1 }}">{{ rom1 }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="GPU">GPU</label>
+                <select class="selectpicker form-control" id="gpu" name="gpu" required="1">
+                    <option>Intel</option>
+                    <option>AMD</option>
+                    <option>Nvidia</option>
+                </select>
+            </div>
+
+              <div class="form-group">
+                <label for="os">Operating System</label>
+                <select class="selectpicker form-control" id="os" name="os" required="1">
+                     {% for o in OS %}
+                   <option value="{{ o }}">{{ o }}</option>
+                   {% endfor %}
+                </select>
+            </div><br>
+            <center>
+                <button type="submit" class="btn btn-primary" onclick="send_data()">Predict Price</button>
+            </center>
+        </form>
+        <br>
+                <div class="row">
+                    <div class="col-12" style="text-align: center">
+                        <h2><span id="prediction"></span></h2>
+                    </div>
+    </div>
+
+    <script>
+function form_handler(event) {
+        event.preventDefault(); // Don't submit the form normally
+    }
+    function send_data()
+    {
+        document.querySelector('form').addEventListener("submit",form_handler);
+        var fd=new FormData(document.querySelector('form'));
+        var xhr= new XMLHttpRequest({mozSystem: true});
+
+        xhr.open('POST','/predict',true);
+        document.getElementById('prediction').innerHTML="Wait! Predicting Price.....";
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == XMLHttpRequest.DONE){
+                document.getElementById('prediction').innerHTML="Predicted Price is : ₹"+xhr.responseText;
+
+            }
+        };
+
+        xhr.onload= function(){};
+
+        xhr.send(fd);
+    }
+
+
+</script>
+    </div>
+</body>
+</html>
