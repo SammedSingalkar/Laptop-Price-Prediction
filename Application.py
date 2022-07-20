@@ -20,6 +20,7 @@ laptop = pd.read_csv('Cleaned_laptop_data.csv')
 def index():
     return render_template('index.html')
 
+# for visualization
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
